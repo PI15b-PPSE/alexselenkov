@@ -116,4 +116,76 @@ Game = {
     }
   }(),
 
+  addEvent:    function(obj, type, fn) { obj.addEventListener(type, fn, false);    },
+  removeEvent: function(obj, type, fn) { obj.removeEventListener(type, fn, false); },
+
+  ready: function(fn) {
+    if (Game.compatible())
+      Game.addEvent(document, 'DOMContentLoaded', fn);
+  },
+
+  createCanvas: function() {
+    return document.createElement('canvas');
+  },
+
+  createAudio: function(src) {
+    try {
+      var a = new Audio(src);
+      a.volume = 0.1; // lets be real quiet please
+      return a;
+    } catch (e) {
+      return null;
+    }
+  },
+
+  loadImages: function(sources, callback) { /* load multiple images and callback when ALL have finished loading */
+    var images = {};
+    var count = sources ? sources.length : 0;
+    if (count == 0) {
+      callback(images);
+    }
+    else {
+      for(var n = 0 ; n < sources.length ; n++) {
+        var source = sources[n];
+        var image = document.createElement('img');
+        images[source] = image;
+        Game.addEvent(image, 'load', function() { if (--count == 0) callback(images); });
+        image.src = source;
+      }
+    }
+  },
+
+  random: function(min, max) {
+    return (min + (Math.random() * (max - min)));
+  },
+
+  timestamp: function() { 
+    return new Date().getTime();
+  },
+
+  KEY: {
+    BACKSPACE: 8,
+    TAB:       9,
+    RETURN:   13,
+    ESC:      27,
+    SPACE:    32,
+    LEFT:     37,
+    UP:       38,
+    RIGHT:    39,
+    DOWN:     40,
+    DELETE:   46,
+    HOME:     36,
+    END:      35,
+    PAGEUP:   33,
+    PAGEDOWN: 34,
+    INSERT:   45,
+    ZERO:     48,
+    ONE:      49,
+    TWO:      50,
+    A:        65,
+    L:        76,
+    P:        80,
+    Q:        81,
+    TILDA:    192
+  },
 }
