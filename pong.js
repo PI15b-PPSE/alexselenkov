@@ -17,4 +17,12 @@ Pong = {
     sound:        true
   },
   
+  Colors: {
+    walls:           'red',
+    ball:            'red',
+    score:           'red',
+    footprint:       '#333',
+    predictionGuess: 'yellow',
+    predictionExact: 'red'
+  },
 }; // Pong
