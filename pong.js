@@ -4,7 +4,7 @@
 * Implementation of an old game for two players using Javascript, HTML and CSS
 *   
 * @author Alexander Selenkov
-* @version 0.5
+* @version 1.0
 * @date 09.12.2018
 */
 
