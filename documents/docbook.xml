@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<article version="5.1" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xila="http://www.w3.org/2001/XInclude/local-attributes"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:trans="http://docbook.org/ns/transclusion"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <info>
+		<title>Программный Продукт "Игра пинг-понг"</title>
+		<author>
+			<personname><firstname>Александр</firstname><surname>Селенков</surname></personname>
+            
+			<orgname>ДонНТУ</orgname>
+		</author>
+		<pubdate>09-12-2018</pubdate>
+	</info>
+
+  <section>
+    <title>Описание продукта</title>
+
+    <para>Программный продукт <emphasis role="bold">Игра пинг-понг </emphasis>был разработан для
+			развлечения. Игра содержит в себе поле с шариком и двумя ракетками. Игра предназначена
+			как для одного, так и для двоих игроков, в игре так же присутсвует демо-режим где можно
+			посмотреть игру компьюетра.</para>
+  </section>
+
+  <section>
+    <title>Первый запуск</title>
+
+    <para>При первом запуске игры пользователю предоставлено поле и предлагается выбрать режим игры,
+			код выбора представлен ниже:</para>
+    
+    <programlisting>    /**
+    * Start
+    *
+    * Sets ball and pads
+    *
+    * @param Int $numPlayers
+    * @return null
+    */
+    start: function(numPlayers) {
+        if (!this.playing) {
+            this.scores = [0, 0];
+            this.playing = true;
+            this.leftPaddle.setAuto(numPlayers &lt; 1, this.level(0));
+            this.rightPaddle.setAuto(numPlayers &lt; 2, this.level(1));
+            this.ball.reset();
+            this.runner.hideCursor();
+        }
+    },</programlisting>
+
+    <para>Обновление состояния игры приведено в программном листинге ниже:</para>
+
+    <programlisting>    /**
+    * Update
+    *
+    * Updates the game according to the DeltaTime
+    *
+    * @param Int $dt
+    * @return null
+    */
+    update: function(dt) {
+        this.leftPaddle.update(dt, this.ball);
+        this.rightPaddle.update(dt, this.ball);
+        if (this.playing) {
+            var dx = this.ball.dx;
+            var dy = this.ball.dy;
+            this.ball.update(dt, this.leftPaddle, this.rightPaddle);
+            if (this.ball.dx &lt; 0 &amp;&amp; dx > 0)
+                this.sounds.ping();
+            else if (this.ball.dx > 0 &amp;&amp; dx &lt; 0)
+                this.sounds.pong();
+            else if (this.ball.dy * dy &lt; 0)
+                this.sounds.wall();
+
+            if (this.ball.left > this.width)
+                this.goal(0);
+            else if (this.ball.right &lt; 0)
+                this.goal(1);
+        }
+    },</programlisting>
+
+    <para>Определение победителя происходит при наборе одним из игроков 9 очков, код представлен
+			ниже:</para>
+
+    <programlisting>       /**
+        * declareWinner
+        *
+        * Declares a winner
+        *
+        * @param Int $playerNo
+        * @return null
+        */
+        declareWinner: function(playerNo) {
+            this.winner = playerNo;
+        },</programlisting>
+
+    <para>Таким образом, было рассмотрено 3 варианта развития событий, с
+    приведенным кодом.</para>
+  </section>
+</article>
