@@ -62,3 +62,36 @@ body {
 #sidebar .parts li a.selected i { 
     color: #F08010; 
 }
+
+#sidebar .settings { 
+    line-height: 1.2em; 
+    height: 1.2em; text-align: right; 
+}
+
+#sidebar .settings.size { 
+}
+
+#sidebar .settings.speed { 
+    margin-bottom: 1em; 
+}
+
+#sidebar .settings label { 
+    vertical-align: middle; 
+}
+
+#sidebar .settings input { 
+    vertical-align: middle; 
+}
+
+#sidebar .settings select { 
+    vertical-align: middle; 
+}
+
+#sidebar .description { 
+    margin-bottom: 2em; 
+}
+
+#sidebar .description b { 
+    font-weight: normal; 
+    color: #FFF; 
+}
